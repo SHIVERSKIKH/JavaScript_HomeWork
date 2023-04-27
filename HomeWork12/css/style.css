@@ -151,7 +151,7 @@ input[type="checkbox"]:checked ~ .box {
   .menu-sublist-item:active a {
     text-decoration: none;
   }
-.menu-nav-basket-link span {
+.quantity__count {
     display: block;
     width: 19px;
     height: 19px;
@@ -604,6 +604,8 @@ input[type="checkbox"]:checked ~ .box {
     line-height: 36px;
     color: #222222;
     margin-bottom: 64px;
+    text-align: center;
+    margin-top: 96px;
 }
 .product {
     position: relative;

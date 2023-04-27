@@ -7,10 +7,15 @@ const productWrp = document.querySelector('.product-box-wrp');
 
 const cardItemsWrp = document.querySelector('.product');
 
+const cartBtnCount = document.querySelector('.menu-nav-basket-link');
 
-productData.forEach(({image, name, description, price}) => {
+//Ловим сам список
+const ul = document.querySelector('.product__box');
+
+
+productData.forEach(({id,image, name, description, price}) => {
     const productEl = `
-    <li class="products-item">
+    <li data-id="${id}" class="products-item">
         <div class="product-content-item">
             <div class="product-content-img">
                <a class="products-item-link" href="#"><img class="products-item-photo" src="${image}" alt="${image}" height="420"></a> 
@@ -30,25 +35,36 @@ productData.forEach(({image, name, description, price}) => {
     productBox.insertAdjacentHTML('beforeend', productEl);
 });
 
+
+//Вынесли в глобальную область создние элемента
+const cardItemsTitle = document.createElement('h2');
+
 window.addEventListener('click', function (event) {
   if(event.target.hasAttribute('data-cart')) {
     const card = event.target.closest('.products-item');
     const productInfo = {
+      id:card.dataset.id,
       imgSrc: card.querySelector('.products-item-photo').getAttribute('src'),
       title: card.querySelector('.product-content-title').innerText,
       price:card.querySelector('.product-price').innerText,
       discription:card.querySelector('.product-content-txt').innerText,
       quanty:1
     };
-    if(productWrp.children.length === 0) {
-    const cardItemsTitle = document.createElement('h2');
+
+    
+    if(ul.children.length === 0) {
       cardItemsTitle.classList.add('text__title');
       cardItemsTitle.innerText = 'Cart Items';
-      cardItemsWrp.insertBefore(cardItemsTitle, cardItemsWrp.firstChild);
+      cardItemsTitle.setAttribute('id', '001');
+      productWrp.insertBefore(cardItemsTitle, productWrp.firstChild);
+    }
+    const itemInCart = document.querySelector(`[data-id="${productInfo.id}"]`);
+    if(itemInCart) {
+        this.alert('Товар в корзину добавлен');
     }
 
     const cartItemHTML = `
-  <li class="product product__width ">
+  <li data-id="${productInfo.id}" class="product product__width ">
                 <button class="btn__del" type="button">Удалить</button>
                 <div class="product__content">
                   <img class="product__img" src="${productInfo.imgSrc}" alt="img" </img>
@@ -61,7 +77,11 @@ window.addEventListener('click', function (event) {
                   </div>
                 </div>
               </li> `;
-              productWrp.insertAdjacentHTML('beforeend', cartItemHTML);
+
+              // Добавляем в список
+              ul.insertAdjacentHTML('beforeend', cartItemHTML);
+              cartBtnCount.innerText = ul.children.length;
+                cartBtnCount.classList.add('quantity__count');
               
               const deleteButtons = document.querySelectorAll('.btn__del');
 
@@ -69,10 +89,20 @@ window.addEventListener('click', function (event) {
                   button.addEventListener('click', () => {
                       const product = button.closest('.product');
                       product.remove();
+                      cartBtnCount.innerText = ul.children.length;
+
+                      //Проверяем список для удаления
+                      if(ul.children.length === 0) {
+                        cardItemsTitle.remove();
+                        cartBtnCount.classList.remove('quantity__count');
+                        cartBtnCount.innerText = '';
+                      }
                   })
                 });
             }
 
   
             });
+            
+
             
