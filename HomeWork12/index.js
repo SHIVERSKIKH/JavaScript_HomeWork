@@ -8,6 +8,8 @@ const productWrp = document.querySelector('.product-box-wrp');
 const cardItemsWrp = document.querySelector('.product');
 
 const cartBtnCount = document.querySelector('.menu-nav-basket-link');
+// Добавил
+const spanQuantity = document.querySelector('.quantity');
 
 //Ловим сам список
 const ul = document.querySelector('.product__box');
@@ -60,7 +62,7 @@ window.addEventListener('click', function (event) {
     }
     const itemInCart = document.querySelector(`[data-id="${productInfo.id}"]`);
     if(itemInCart) {
-        this.alert('Товар в корзину добавлен');
+      alert('Товар в корзину добавлен');
     }
 
     const cartItemHTML = `
@@ -80,8 +82,8 @@ window.addEventListener('click', function (event) {
 
               // Добавляем в список
               ul.insertAdjacentHTML('beforeend', cartItemHTML);
-              cartBtnCount.innerText = ul.children.length;
-                cartBtnCount.classList.add('quantity__count');
+              spanQuantity.innerText = ul.children.length; 
+              spanQuantity.classList.add('quantity__count'); 
               
               const deleteButtons = document.querySelectorAll('.btn__del');
 
@@ -89,13 +91,13 @@ window.addEventListener('click', function (event) {
                   button.addEventListener('click', () => {
                       const product = button.closest('.product');
                       product.remove();
-                      cartBtnCount.innerText = ul.children.length;
+                      spanQuantity.innerText = ul.children.length; 
 
                       //Проверяем список для удаления
                       if(ul.children.length === 0) {
                         cardItemsTitle.remove();
-                        cartBtnCount.classList.remove('quantity__count');
-                        cartBtnCount.innerText = '';
+                        spanQuantity.classList.remove('quantity__count');
+                        spanQuantity.innerText = ''; 
                       }
                   })
                 });
@@ -103,6 +105,10 @@ window.addEventListener('click', function (event) {
 
   
             });
+            
+
+            
+
             
 
             
