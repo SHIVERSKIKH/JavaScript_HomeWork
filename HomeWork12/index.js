@@ -8,7 +8,7 @@ const productWrp = document.querySelector('.product-box-wrp');
 const cardItemsWrp = document.querySelector('.product');
 
 const cartBtnCount = document.querySelector('.menu-nav-basket-link');
-// Добавил
+
 const spanQuantity = document.querySelector('.quantity');
 
 //Ловим сам список
@@ -38,7 +38,7 @@ productData.forEach(({id,image, name, description, price}) => {
 });
 
 
-//Вынесли в глобальную область создние элемента
+
 const cardItemsTitle = document.createElement('h2');
 
 window.addEventListener('click', function (event) {
@@ -80,7 +80,7 @@ window.addEventListener('click', function (event) {
                 </div>
               </li> `;
 
-              // Добавляем в список
+             
               ul.insertAdjacentHTML('beforeend', cartItemHTML);
               spanQuantity.innerText = ul.children.length; 
               spanQuantity.classList.add('quantity__count'); 
@@ -93,7 +93,7 @@ window.addEventListener('click', function (event) {
                       product.remove();
                       spanQuantity.innerText = ul.children.length; 
 
-                      //Проверяем список для удаления
+                      
                       if(ul.children.length === 0) {
                         cardItemsTitle.remove();
                         spanQuantity.classList.remove('quantity__count');
